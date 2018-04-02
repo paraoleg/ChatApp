@@ -1,0 +1,25 @@
+.content {
+    display: flex;
+    justify-content: center;
+    width: calc(100% - 160px);
+    height: calc(100vh - 150px);
+    margin: 0 auto;
+}
+
+.content-container {
+    width: calc(100% - 262px);
+} 
+
+header {
+    height: 80px;
+    background: #fff;
+    padding-left: 80px;
+    margin-bottom: 20px;
+}
+
+header h2 {
+    padding-top: 30px;
+    font-size: 32px;
+    font-weight: 600;
+    color: #000;
+}

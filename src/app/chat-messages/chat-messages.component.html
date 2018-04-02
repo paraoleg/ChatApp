@@ -1,0 +1,18 @@
+<div class="chat">
+  <div class="messages-wrapper">
+    <div>
+      <div *ngFor="let message of user.messages" class="message">
+        <div class="message-head">
+          <span class="name">{{message.author}}</span>
+          <span class="date">{{message.date}}</span>
+        </div>
+        <p>{{message.text}}</p>
+        <div class="triangle"></div>
+      </div>
+    </div>
+  </div>
+  <div class="message-form">
+    <input type="text" placeholder="Start chatting!" [(ngModel)]="messageText">
+    <button type="button" (click)="sendMessage()">Send Message</button>
+  </div>
+</div>

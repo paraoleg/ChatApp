@@ -1,0 +1,97 @@
+.sidebar {
+    width: 262px;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar img {
+    height: 60px;
+    width: 60px;
+}
+
+.sidebar-users-wrap {
+    height: 400px;
+    overflow: auto;
+}
+
+.sidebar-user {
+    padding: 5px 0;
+    display: flex;
+    padding-left: 12px;
+}
+
+.sidebar-user:hover {
+    background: #f8f8f8;
+}
+
+.user-description {
+    margin: 5px 15px;    
+}
+
+.user-description p {
+    font-size: 14px;
+    font-weight: 400;
+    color: #999;
+
+}
+
+.user-description h4 {
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+    padding-bottom: 3px;
+}
+
+.sidebar-tabs {
+    display: flex;
+    margin-bottom: 10px;
+}
+.sidebar-tabs .tab {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    height: 44px;
+    width: 50%;
+    line-height: 44px;
+    text-align: center;
+}
+.sidebar-tabs .tab.active {
+    background: #fff;
+    border: none;
+
+}
+
+.sidebar input {
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 4px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: inset 0px 1px 1px 0px rgba(0, 1, 1, 0.15);
+    width: 230px;
+    height: 36px;
+    margin: 0 auto 20px auto;   
+    display: block;
+}
+.sidebar input[placeholder] {
+    padding-left: 12px;
+    color: #999;
+    font-size: 14px;
+}
+
+.user-image {
+    height: 60px;
+    width: 60px;
+    position: relative;
+}
+
+.user-status-online {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    border-radius: 50%;
+    background: #20d63e;
+    height: 15px;
+    width: 15px;
+    display: block;
+}
