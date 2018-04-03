@@ -1,30 +1,42 @@
-<div class="sidebar">
-  <div class="sidebar-wrapper">
-
-    <div  class="sidebar-tabs">
-      <span *ngFor="let tab of tabs" class="tab" [ngClass]="{'active': tab.active }" (click)="activateTab(tab.id)">{{tab.text}}</span>
-    </div>
-
-    <div class='sidebar-users-wrap'>
-      <div *ngFor="let user of users" class="sidebar-users">
-          <a href="#" (click)="selectedUserId=user.id">
-            <div class="sidebar-user">
-              <div class="user-image">
-                <img src="{{user.image}}">
-                <span [ngClass]="{'user-status-online': user.status }"></span>
-              </div>
-              <div class="user-description">
-                <h4>{{user.name}}</h4>
-                <p>{{textFormat(user.description)}}</p>
-              </div>
-            </div>
-          </a>
-        </div>
-    </div>
-
+<div class="content">
+  <div class="content-container">
+          <app-user-info [user] = "selectedUser"></app-user-info>
+          <app-chat-messages [user] = "selectedUser"></app-chat-messages>
   </div>
 
-  <div>
-      <input (keyup)="onSearchUser($event)" placeholder="Search...">
+  <div class="sidebar">
+      
+    <div class="sidebar-wrapper">
+
+      <div  class="sidebar-tabs">
+        <span *ngFor="let tab of tabs" class="tab" [ngClass]="{'active': tab.active }" (click)="activateTab(tab.id)">{{tab.text}}</span>
+      </div>
+
+      <div class='sidebar-users-wrap'>
+        <div *ngFor="let user of users" class="sidebar-users">
+            <a href="#" 
+              [class.selected]="user === selectedUser"
+              (click)="setSelectedUser(user)">
+              <div class="sidebar-user">
+                <div class="user-image">
+                  <img src="{{user.image}}">
+                  <span [ngClass]="{'user-status-online': user.status }"></span>
+                </div>
+                <div class="user-description">
+                  <h4>{{user.name}}</h4>
+                  <p>{{textFormat(user.description)}}</p>
+                </div>
+              </div>
+            </a>
+          </div>
+      </div>
+
+    </div>
+
+    <div>
+        <input (keyup)="onSearchUser($event)" placeholder="Search...">
+    </div>
   </div>
+  
+  
 </div>

@@ -10,13 +10,18 @@ import { User } from '../user';
 export class UserSelectComponent implements OnInit {
   users: User[];  
   tempUsers: User[];
-  selectedUserId: number;
+  selectedUser: User;
   constructor(private userService: UserService) { }
 
   tabs: Array<{id: number, active: boolean, text: string}>= [{id: 1, active: true, text: 'Online'}, {id: 2, active: false, text: 'All'}];
   ngOnInit() {
     this.getUsers();
     setTimeout(() => this.activateTab(1), 1000);
+    
+  }
+
+  setSelectedUser(selectedUser: User){
+    this.selectedUser = selectedUser;
   }
 
   getUsers(): void {
@@ -24,6 +29,8 @@ export class UserSelectComponent implements OnInit {
     .subscribe(users => this.users = users);
     this.userService.getUsers()
     .subscribe(users => this.tempUsers = users);
+    this.userService.getUsers()
+    .subscribe(users => this.selectedUser = users[0]);
     
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NgModule }      from '@angular/core';
 
 import { UserService } from '../user.service';
@@ -24,28 +24,14 @@ export class ChatMessagesComponent implements OnInit {
       this._chatService.newMessageRecieved()
       .subscribe(data =>this.user.messages.push(data))
   }
-
+  @Input() user: User;
   messageText = '';
-  user: User;
+  
 
   ngOnInit() {
-    // this.getUser();
-    this.getUsers();
     setTimeout(() => this.join(), 1000);
-    
   }
-
-  getUsers(): void {
-    this.userService.getUsers()
-    .subscribe(users => this.user = users[1]);
-  }
-
-  /*getUser(): void {
-    this.userService.getUser(11)
-    .subscribe(user => this.user = user);
-  }*/
-
-
+  
   room = 'Bot';
   
   join(){

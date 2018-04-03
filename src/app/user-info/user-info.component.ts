@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserService }       from '../user.service';
 import { User } from '../user';
 
@@ -8,20 +8,17 @@ import { User } from '../user';
   styleUrls: ['./user-info.component.css']
 })
 export class UserInfoComponent implements OnInit {
-  users: User[] = []; 
-  user: User;
+    
+  @Input() user: User;
+
   constructor(
     private userService: UserService
   ) { }
 
   ngOnInit() {
-    this.getUsers();
+       
   }
-
-  getUsers(): void {
-    this.userService.getUsers()
-    .subscribe(users => this.user = users[1]);
-  }
-
+  
+ 
   
 }

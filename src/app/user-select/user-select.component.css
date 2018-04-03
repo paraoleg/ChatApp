@@ -6,6 +6,17 @@
     flex-direction: column;
     justify-content: space-between;
 }
+.content {
+    display: flex;
+    justify-content: center;
+    width: calc(100% - 160px);
+    height: calc(100vh - 150px);
+    margin: 0 auto;
+}
+
+.content-container {
+    width: calc(100% - 262px);
+} 
 
 .sidebar img {
     height: 60px;
