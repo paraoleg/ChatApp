@@ -16,24 +16,14 @@ const httpOptions = {
 export class UserService {
 
   private usersUrl = 'api/users';  // URL to api
-  selectedUserId: number;
-
+  
   constructor(
     private http: HttpClient,
     private messageService: MessageService
   ) { }
 
-  setSelectedId(id: number){
-    this.selectedUserId = id;
-    console.log(this.selectedUserId + 'setSelected');
-  }
-
-  getSelectedId(){
-    return this.selectedUserId;
-  }
-
-
-  /** GET heroes from the server */
+  
+  // GET heroes from the server 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.usersUrl)
     .pipe(
@@ -42,14 +32,6 @@ export class UserService {
     );
   }
 
-  /** GET hero by id. Will 404 if id not found */
-  getUser(id: number): Observable<User> {
-    const url = `${this.usersUrl}/${id}`;
-    return this.http.get<User>(url).pipe(
-      tap(_ => this.log(`fetched hero id=${id}`)),
-      catchError(this.handleError<User>(`getHero id=${id}`))
-    );
-  }
 
   /**
    * Handle Http operation that failed.

@@ -15,7 +15,6 @@ import { User } from '../user';
 export class ChatMessagesComponent implements OnInit {
     
   constructor(
-    
     private userService: UserService,
     private _chatService: ChatService) { 
       this._chatService.newUserJoined()
