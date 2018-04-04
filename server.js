@@ -31,29 +31,56 @@ io.on('connection', (socket) => {
   console.log('new connection');
 
   const newUserId = Date.now();
+    
   const newUser = { 
     id: newUserId,
     name: 'New user' + newUserId,
     description: 'Lorem ipsum dolor sit amet',
     status: true,
     image: 'https://image.flaticon.com/icons/svg/145/145852.svg',
-    currentUser: true,
     messages: []
   }
-
+  console.log(newUser.id);
   Users.push(newUser);
+  
+  socket.emit('userData', Users);
 
   socket.on('join', data => {
     socket.join(data.room);
     console.log(data.user + " joined")
-
+    socket.emit('userData', Users);
     socket.broadcast.to(data.room).emit('new user joined', {author: data.user, text:"has joined"})
   });
 
   socket.on('message', data => {
+
+    newMessage = {
+      id: Date.now(),
+      author:data.currentUserName,
+      text:data.message,
+      date: data.date 
+    }
+   
+    Users.forEach((user) => {
+      if(data.toid == user.id){
+
+      switch (data.toid) {
+      case 11:
+        io.in(data.currentUserId).emit('new message', {author: user.name, text:data.message, date: Date.now()})
+        break;
+      case 12:
+        setTimeout(() => io.in(data.currentUserId).emit('new message', {author: user.name, text:data.message.replace('x', 'y'), date: Date.now()}), 3000);
+        break;
+      }
+      
+      return user.messages.push(newMessage);
+    }
+    });
+    
+        
     console.log(data);
-    io.in(data.room).emit('new message', {author: data.user, text:data.message});
-    setTimeout(() => io.in(data.room).emit('new message', {author: 'bot', text:data.message.replace('x', 'y')}), 3000);
+    socket.broadcast.to(data.toid).emit('new message', newMessage);
+
   });
 
   socket.on('disconnect', () => {

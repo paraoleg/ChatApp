@@ -1,7 +1,7 @@
 <div class="chat">
   <div class="messages-wrapper">
     <div>
-      <div *ngFor="let message of user.messages" class="message">
+      <div *ngFor="let message of selectedUser.messages" class="message">
         <div class="message-head">
           <span class="name">{{message.author}}</span>
           <span class="date">{{message.date}}</span>

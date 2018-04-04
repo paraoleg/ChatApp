@@ -1,39 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserService }       from '../user.service';
 import { User } from '../user';
+
+import { ChatService } from '../chat.service';
 
 @Component({
   selector: 'app-user-select',
   templateUrl: './user-select.component.html',
-  styleUrls: ['./user-select.component.css']
+  styleUrls: ['./user-select.component.css'],
+  providers: [ChatService]
 })
 export class UserSelectComponent implements OnInit {
-  users: User[];  
-  tempUsers: User[];
+  @Input() users: User[];  
+  @Input() tempUsers: User[];
   selectedUser: User;
-  constructor(private userService: UserService) { }
+  currentUser: User;
 
-  tabs: Array<{id: number, active: boolean, text: string}>= [{id: 1, active: true, text: 'Online'}, {id: 2, active: false, text: 'All'}];
+  constructor(private _chatService: ChatService) { 
+    this._chatService.getUserData()
+    .subscribe(data => this.users = data)
+
+    this._chatService.getUserData()
+    .subscribe(data => this.tempUsers = data)
+
+    this._chatService.getUserData()
+    .subscribe(data => this.selectedUser = data[0])
+
+  }
+
+  tabs: Array<{id: number, active: boolean, text: string}> = [{id: 1, active: true, text: 'Online'}, {id: 2, active: false, text: 'All'}];
   ngOnInit() {
-    this.getUsers();
-    setTimeout(() => this.activateTab(1), 1000);
-    
+    setTimeout(() => this.activateTab(1), 2000);
   }
 
   setSelectedUser(selectedUser: User){
     this.selectedUser = selectedUser;
   }
 
-  getUsers(): void {
-    this.userService.getUsers()
-    .subscribe(users => this.users = users);
-    this.userService.getUsers()
-    .subscribe(users => this.tempUsers = users);
-    this.userService.getUsers()
-    .subscribe(users => this.selectedUser = users[0]);
-    
-  }
-
+  
   textFormat(str: string) {
       return str.slice(0, 42) + "...";
   }
