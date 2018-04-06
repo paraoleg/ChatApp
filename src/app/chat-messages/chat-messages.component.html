@@ -1,18 +1,18 @@
 <div class="chat">
-  <div class="messages-wrapper">
-    <div>
-      <div *ngFor="let message of selectedUser.messages" class="message">
-        <div class="message-head">
+  <div class="messages-wrapper" *ngIf="currentUser">
+    <div *ngIf="selectedUser">
+      <div *ngFor="let message of selectedUser.messages" class="message" [class.selected]="currentUser.name === message.author">
+        <div class="message-head" [class.selected]="currentUser.name === message.author">
           <span class="name">{{message.author}}</span>
           <span class="date">{{message.date}}</span>
         </div>
         <p>{{message.text}}</p>
-        <div class="triangle"></div>
+        <div class="triangle" [class.selected]="currentUser.name === message.author"></div>
       </div>
     </div>
   </div>
   <div class="message-form">
-    <input type="text" placeholder="Start chatting!" [(ngModel)]="messageText">
+    <input type="text" placeholder="Start chatting!" [(ngModel)]="messageText" (keydown)="keyDownFunction($event)">
     <button type="button" (click)="sendMessage()">Send Message</button>
   </div>
 </div>

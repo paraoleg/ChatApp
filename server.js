@@ -30,6 +30,7 @@ const io = require('socket.io')(server);
 io.on('connection', (socket) => {
   console.log('new connection');
 
+  
   const newUserId = Date.now();
     
   const newUser = { 
@@ -40,19 +41,19 @@ io.on('connection', (socket) => {
     image: 'https://image.flaticon.com/icons/svg/145/145852.svg',
     messages: []
   }
-  console.log(newUser.id);
   Users.push(newUser);
   
-  socket.emit('userData', Users);
+  io.emit('userData', Users);
+  socket.emit('currentUser', Users[Users.length - 1]);
 
   socket.on('join', data => {
     socket.join(data.room);
     console.log(data.user + " joined")
-    socket.emit('userData', Users);
-    socket.broadcast.to(data.room).emit('new user joined', {author: data.user, text:"has joined"})
   });
 
   socket.on('message', data => {
+
+    let date = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 
     newMessage = {
       id: Date.now(),
@@ -60,27 +61,23 @@ io.on('connection', (socket) => {
       text:data.message,
       date: data.date 
     }
+    console.log(newMessage);
    
     Users.forEach((user) => {
       if(data.toid == user.id){
-
-      switch (data.toid) {
-      case 11:
-        io.in(data.currentUserId).emit('new message', {author: user.name, text:data.message, date: Date.now()})
-        break;
-      case 12:
-        setTimeout(() => io.in(data.currentUserId).emit('new message', {author: user.name, text:data.message.replace('x', 'y'), date: Date.now()}), 3000);
-        break;
-      }
-      
+        switch (data.toid) {
+        case 11:
+          io.in(data.currentUserId).emit('new message', {author: user.name, text:data.message, date: date})
+          break;
+        case 12:
+          setTimeout(() => io.in(data.currentUserId).emit('new message', {author: user.name, text:data.message.split("").reverse().join(""), date: date}), 3000);
+          break;
+        }
       return user.messages.push(newMessage);
-    }
-    });
-    
-        
+    }});
+            
     console.log(data);
     socket.broadcast.to(data.toid).emit('new message', newMessage);
-
   });
 
   socket.on('disconnect', () => {
@@ -89,6 +86,22 @@ io.on('connection', (socket) => {
         return newUserId !== user.id;
       });
   });
+
+  setInterval(() => {
+    io.in(newUserId).emit('new message', {
+      author: "Spam Bot", 
+      text:"Спам", 
+      date: new Date().toLocaleString('en-US', { 
+        hour: 'numeric', minute: 'numeric', hour12: true 
+      })
+    })}, randomInteger(10000, 120000));
+
+  function randomInteger(min, max) {
+    var rand = min + Math.random() * (max + 1 - min);
+    rand = Math.floor(rand);
+    return rand;
+  }
+
 });
 
 

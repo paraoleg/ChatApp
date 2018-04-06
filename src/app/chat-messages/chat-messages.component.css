@@ -28,6 +28,7 @@
     display: flex;
     justify-content: space-between;  
     align-items: center; 
+    
 }
 
 .message .triangle {
@@ -37,6 +38,24 @@
     bottom: 10px;
     left: -20px;
 }
+
+.message.selected {
+    margin-left: auto;
+    position: relative;
+}
+
+.message-head.selected {
+    background-color: rgb(255, 239, 225);
+}
+
+.message .triangle.selected {
+    left: 100%;
+    border-left: 10px solid  rgb(244, 248, 251);
+    border-right: none;
+}
+
+
+
 
 .message-head .name {
     margin-left: 18px;

@@ -36,6 +36,11 @@
 
 .sidebar-user:hover {
     background: #f8f8f8;
+    cursor: pointer;
+}
+
+.sidebar-user.selected {
+    background: #f8f8f8;
 }
 
 .user-description {
@@ -71,7 +76,10 @@
 .sidebar-tabs .tab.active {
     background: #fff;
     border: none;
+}
 
+.sidebar-tabs:hover {
+    cursor: pointer;
 }
 
 .sidebar input {

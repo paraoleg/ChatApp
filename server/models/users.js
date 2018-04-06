@@ -1,3 +1,4 @@
+let date = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 
 module.exports = [
     { 
@@ -7,10 +8,10 @@ module.exports = [
       status: true,
       image: 'https://image.flaticon.com/icons/svg/145/145852.svg',
       messages: [{
-        id: 1,
-        author: 12,
-        text: 'Hello!',
-        date: Date.now()      
+        id: Date.now(),
+        author: 'Echo Bot',
+        text: 'Hello, I repeat everything you send!',
+        date: date      
       }]
     },
     { 
@@ -20,10 +21,10 @@ module.exports = [
       status: true,
       image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0vzhZ7tBFaiTA3om-AVJa4SM23T0AlP5U8Mvs_xBPsw__kU2h',
       messages: [{
-        id: 1,
-        author: 12,
-        text: 'Hello!',
-        date: Date.now()      
+        id: Date.now(),
+        author: 'Reverse Bot',
+        text: 'Hi, I\'m Reverse Bot!',
+        date: date      
       }]
     },
     { id: 13, 
@@ -38,7 +39,12 @@ module.exports = [
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,', 
       status: true,
       image: 'https://image.flaticon.com/icons/svg/145/145852.svg',
-      messages: []
+      messages: [{
+        id: Date.now(),
+        author: 'Ignore Bot',
+        text: 'Do not text me..',
+        date: date      
+      }]
     },
     { id: 15, 
       name: 'Not Online Bot', 

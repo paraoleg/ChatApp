@@ -9,23 +9,10 @@ export class ChatService {
   private socket = io('http://localhost:3000');
   constructor() { }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() { }
  
   joinRoom(data){
     this.socket.emit('join', data)
-  }
-
-  newUserJoined(){
-    let observable =new Observable<{user:string, message:string}>(observer => {
-      this.socket.on('new user joined', data => {
-        observer.next(data);
-      })
-      return ()=>{this.socket.disconect();}
-    })
-  
-    return observable;
   }
 
   sendMessage(data){
@@ -33,7 +20,7 @@ export class ChatService {
   }
 
   newMessageRecieved(){
-    let observable = new Observable<{id: number, author:string, text:string, date: number}>(observer => {
+    let observable = new Observable<{id: number, author:string, text:string, date: string}>(observer => {
       this.socket.on('new message', data => {
         observer.next(data);
       })
@@ -48,11 +35,21 @@ export class ChatService {
       this.socket.on('userData', data => {
         observer.next(data);
       })
-      return ()=>{this.socket.disconect();}
+      return () => {this.socket.disconect();}
     })
   
     return observable;
   }
 
+  getCurrentUser(){
+    let observable = new Observable<User>(observer => {
+      this.socket.on('currentUser', data => {
+        observer.next(data);
+      })
+      return ()=>{this.socket.disconect();}
+    })
+  
+    return observable;
+  }
   
 }
