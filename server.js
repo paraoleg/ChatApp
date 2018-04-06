@@ -33,7 +33,7 @@ io.on('connection', (socket) => {
     messages: []
   }
   Users.push(newUser);
-  
+    
   io.emit('userData', Users);
   socket.emit('currentUser', Users[Users.length - 1]);
 
@@ -62,14 +62,14 @@ io.on('connection', (socket) => {
       if(data.toid == user.id){
         switch (data.toid) {
         case 11:
-          io.in(data.currentUserId).emit('new message', {
+          return io.in(data.currentUserId).emit('new message', {
             author: user.name, 
             text:data.message, 
             date: date
           })
           break;
         case 12:
-          setTimeout(() => io.in(data.currentUserId).emit('new message', {
+          return setTimeout(() => io.in(data.currentUserId).emit('new message', {
             author: user.name, 
             text:data.message.split("").reverse().join(""), 
             date: date
