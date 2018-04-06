@@ -22,14 +22,19 @@ export class ChatMessagesComponent implements OnInit {
   
   ngOnInit() { }
   
-  
-
   sendMessage(){
-    let date = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    let date = new Date().toLocaleString('en-US', { 
+      hour: 'numeric', 
+      minute: 'numeric',
+      hour12: true 
+    });
     this.messageText = this.messageText.trim();
     if (this.messageText){
-    this.selectedUser.messages.push({author: this.currentUser.name, text: this.messageText, date: date})
-    console.log(this.messageText);
+    this.selectedUser.messages.push({
+      author: this.currentUser.name, 
+      text: this.messageText, 
+      date: date
+    });
 
     this._chatService.sendMessage({
       currentUserId: this.currentUser.id,

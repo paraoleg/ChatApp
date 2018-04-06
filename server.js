@@ -1,21 +1,12 @@
 const express = require('express');
 const path = require('path');
 const http = require('http');
-const bodyParser = require('body-parser');
-let Users = require('./server/models/users');
 
-// Get our API routes
-const api = require('./server/routes/api');
+let Users = require('./server/models/users');
 
 const app = express();
 
-// Parsers for POST data
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
 app.use(express.static(path.join(__dirname, 'dist')));
-
-app.use('/api', api);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
@@ -53,7 +44,11 @@ io.on('connection', (socket) => {
 
   socket.on('message', data => {
 
-    let date = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    let date = new Date().toLocaleString('en-US', { 
+      hour: 'numeric', 
+      minute: 'numeric', 
+      hour12: true 
+    });
 
     newMessage = {
       id: Date.now(),
@@ -67,10 +62,18 @@ io.on('connection', (socket) => {
       if(data.toid == user.id){
         switch (data.toid) {
         case 11:
-          io.in(data.currentUserId).emit('new message', {author: user.name, text:data.message, date: date})
+          io.in(data.currentUserId).emit('new message', {
+            author: user.name, 
+            text:data.message, 
+            date: date
+          })
           break;
         case 12:
-          setTimeout(() => io.in(data.currentUserId).emit('new message', {author: user.name, text:data.message.split("").reverse().join(""), date: date}), 3000);
+          setTimeout(() => io.in(data.currentUserId).emit('new message', {
+            author: user.name, 
+            text:data.message.split("").reverse().join(""), 
+            date: date
+          }), 3000);
           break;
         }
       return user.messages.push(newMessage);
@@ -105,7 +108,6 @@ io.on('connection', (socket) => {
 });
 
 
-
 /// Listen on provided port, on all network interfaces.
-server.listen(port, () => console.log(`API running on localhost:${port}`));
+server.listen(port, () => console.log(`Server running on localhost:${port}`));
 

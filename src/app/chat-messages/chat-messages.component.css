@@ -45,7 +45,7 @@
 }
 
 .message-head.selected {
-    background-color: rgb(255, 239, 225);
+    background-color: #f0cbb3;
 }
 
 .message .triangle.selected {
@@ -53,9 +53,6 @@
     border-left: 10px solid  rgb(244, 248, 251);
     border-right: none;
 }
-
-
-
 
 .message-head .name {
     margin-left: 18px;
@@ -107,4 +104,28 @@
     font-size: 14px;
     padding: 0;
     
+}
+
+::-webkit-scrollbar {
+    width: 34px;
+}
+
+::-webkit-scrollbar-track
+{
+	border-radius: 10px;
+    background-color: #becbd9;
+    border: 12px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+    border-radius: 34px;
+}
+
+::-webkit-scrollbar-thumb {
+    border: 12px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+    border-radius: 34px;
+    background-color: #9daab9;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: transparent;
 }

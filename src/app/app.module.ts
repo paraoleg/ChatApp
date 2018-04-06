@@ -8,8 +8,6 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { UserSelectComponent } from './user-select/user-select.component';
 import { ChatMessagesComponent } from './chat-messages/chat-messages.component';
 
-import { UserService }          from './user.service';
-import { MessageService }       from './message.service';
 import { ChatService } from './chat.service';
 
 
@@ -25,7 +23,7 @@ import { ChatService } from './chat.service';
     HttpClientModule,
     BrowserModule
   ],
-  providers: [UserService, MessageService, ChatService],
+  providers: [ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
